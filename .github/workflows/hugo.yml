@@ -22,8 +22,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: recursive
           fetch-depth: 0
+
+      - name: Init submodules for CI
+        run: |
+          git config -f .gitmodules submodule.themes/PaperMod.url https://github.com/adityatelange/hugo-PaperMod.git
+          git submodule sync --recursive
+          git submodule update --init --recursive
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

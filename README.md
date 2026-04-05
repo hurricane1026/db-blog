@@ -92,3 +92,6 @@ hugo new series/<topic>/<slug>.md
 1. GitHub Pages 已启用，并选择 “GitHub Actions” 作为来源。
 2. 仓库设置允许 Actions 使用 `pages` 和 `id-token` 权限。
 3. `baseURL` 与实际站点域名一致。
+4. 生产机如果直接 `git pull` 后构建，需要先确保 SSH key 能访问 GitHub，再执行 `git submodule update --init --recursive` 拉取 `themes/PaperMod`。
+
+当前 `.gitmodules` 已切到 SSH 地址，便于无法通过 HTTPS 拉取子模块的服务器部署；GitHub Actions 会在 CI 中临时改回 HTTPS 再初始化子模块。
