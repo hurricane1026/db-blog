@@ -2,14 +2,20 @@
 title: 第 3 篇：高可用、备份与容灾的真实成本
 slug: ha-backup-and-dr
 date: 2026-04-05
+draft: false
+categories:
+  - 稳定性治理
 tags:
   - 云数据库
   - 高可用
   - 备份
   - 容灾
 summary: 在云数据库里，高可用、备份和容灾是三件相关但完全不同的事。
-series: 云数据库系列
+series:
+  - 云数据库系列
 order: 3
+weight: 30
+showToc: true
 ---
 
 # 第 3 篇：高可用、备份与容灾的真实成本

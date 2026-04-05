@@ -2,13 +2,19 @@
 title: 第 1 篇：云数据库到底改变了什么
 slug: what-cloud-database-changed
 date: 2026-04-05
+draft: false
+categories:
+  - 数据库架构
 tags:
   - 云数据库
   - 架构
   - 运维
 summary: 云数据库的价值不只是托管，而是重新划分数据库生命周期中的责任边界。
-series: 云数据库系列
+series:
+  - 云数据库系列
 order: 1
+weight: 10
+showToc: true
 ---
 
 # 第 1 篇：云数据库到底改变了什么
