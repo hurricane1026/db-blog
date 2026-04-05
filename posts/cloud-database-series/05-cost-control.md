@@ -2,13 +2,19 @@
 title: 第 5 篇：云数据库为什么总是“越用越贵”
 slug: cost-control
 date: 2026-04-05
+draft: false
+categories:
+  - 成本治理
 tags:
   - 云数据库
   - 成本优化
   - FinOps
 summary: 云数据库成本失控通常不是因为单价高，而是因为扩张路径没有被约束。
-series: 云数据库系列
+series:
+  - 云数据库系列
 order: 5
+weight: 50
+showToc: true
 ---
 
 # 第 5 篇：云数据库为什么总是“越用越贵”

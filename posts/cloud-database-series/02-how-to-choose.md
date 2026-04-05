@@ -2,6 +2,9 @@
 title: 第 2 篇：关系型、NoSQL、NewSQL 怎么选
 slug: how-to-choose-cloud-database
 date: 2026-04-05
+draft: false
+categories:
+  - 数据库选型
 tags:
   - 云数据库
   - 选型
@@ -9,8 +12,11 @@ tags:
   - NoSQL
   - NewSQL
 summary: 数据库选型的关键不是“哪种技术更先进”，而是哪种约束更符合你的业务。
-series: 云数据库系列
+series:
+  - 云数据库系列
 order: 2
+weight: 20
+showToc: true
 ---
 
 # 第 2 篇：关系型、NoSQL、NewSQL 怎么选

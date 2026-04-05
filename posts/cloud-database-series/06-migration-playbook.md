@@ -2,13 +2,19 @@
 title: 第 6 篇：从自建 MySQL 迁移到云数据库的实战路径
 slug: migration-playbook
 date: 2026-04-05
+draft: false
+categories:
+  - 数据迁移
 tags:
   - 云数据库
   - MySQL
   - 数据迁移
 summary: 数据库迁移的重点不是“搬过去”，而是在可回滚前提下完成切换。
-series: 云数据库系列
+series:
+  - 云数据库系列
 order: 6
+weight: 60
+showToc: true
 ---
 
 # 第 6 篇：从自建 MySQL 迁移到云数据库的实战路径

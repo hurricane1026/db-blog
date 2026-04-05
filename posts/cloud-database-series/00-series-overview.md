@@ -2,11 +2,18 @@
 title: 云数据库系列总览
 slug: cloud-database-series-overview
 date: 2026-04-05
+draft: false
+categories:
+  - 数据库架构
 tags:
   - 云数据库
   - 数据库
   - 架构
+series:
+  - 云数据库系列
+weight: 0
 summary: 一组面向工程团队与技术管理者的云数据库系列文章，覆盖认知、选型、架构、性能、成本和迁移。
+showToc: true
 ---
 
 # 云数据库系列总览
