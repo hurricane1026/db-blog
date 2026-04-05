@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3f1d2e"/><stop offset="100%" stop-color="#f59e0b"/></linearGradient></defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <text x="120" y="170" fill="#fff" font-family="Helvetica, Arial, sans-serif" font-size="30" letter-spacing="5">CHAPTER 04</text>
+  <text x="120" y="268" fill="#fff" font-family="Helvetica, Arial, sans-serif" font-size="72" font-weight="700">COMPUTE</text>
+  <text x="120" y="338" fill="#fff" font-family="Helvetica, Arial, sans-serif" font-size="72" font-weight="700">AND COST</text>
+  <rect x="790" y="186" width="92" height="214" rx="18" fill="#fff" fill-opacity=".18"/>
+  <rect x="912" y="252" width="92" height="148" rx="18" fill="#fff" fill-opacity=".28"/>
+  <rect x="1034" y="136" width="92" height="264" rx="18" fill="#fff" fill-opacity=".12"/>
+</svg>

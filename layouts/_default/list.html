@@ -1,0 +1,189 @@
+{{- define "main" }}
+
+{{- if .Data.Term }}
+<div class="db-home db-taxonomy-page">
+  <section class="db-home-hero">
+    <div class="db-home-hero-copy">
+      <span class="db-home-kicker">{{ .Data.Plural | humanize }}</span>
+      <h1>{{ .Title }}</h1>
+      <p class="db-home-summary">当前词条下共有 {{ len .Pages }} 篇文章，适合从一个具体问题域继续向下阅读。</p>
+      <div class="db-home-actions">
+        <a class="db-home-button primary" href="/{{ .Data.Plural | urlize }}/">返回{{ .Data.Plural | humanize }}</a>
+        <a class="db-home-button" href="/articles/">全部文章</a>
+        <a class="db-home-button" href="/search/">站内搜索</a>
+      </div>
+    </div>
+    <div class="db-home-stats">
+      <article class="db-stat-card">
+        <span class="db-stat-label">文章数量</span>
+        <strong>{{ len .Pages }}</strong>
+      </article>
+      <article class="db-stat-card">
+        <span class="db-stat-label">词条</span>
+        <strong>{{ .Title }}</strong>
+      </article>
+      <article class="db-stat-card">
+        <span class="db-stat-label">来源</span>
+        <strong>{{ .Data.Plural | humanize }}</strong>
+      </article>
+    </div>
+  </section>
+
+  <section class="db-home-panel">
+    <div class="db-home-panel-header">
+      <h2>相关文章</h2>
+      <p>从这个词条下继续浏览具体文章。</p>
+    </div>
+    <div class="db-library-list">
+      {{- range .Pages.ByWeight }}
+      <article class="db-library-row">
+        <div class="db-library-row-main">
+          <div class="db-home-inline-meta">
+            <span>{{ .Date | time.Format "2006-01-02" }}</span>
+            <span>{{ with index .Params.series 0 }}{{ . }}{{ else }}独立文章{{ end }}</span>
+          </div>
+          <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          <p>{{ .Summary | plainify | htmlUnescape }}</p>
+          {{- with .Params.tags }}
+          <div class="db-home-tags">
+            {{- range first 4 . }}
+            <span>{{ . }}</span>
+            {{- end }}
+          </div>
+          {{- end }}
+        </div>
+        <div class="db-library-row-side">
+          {{- $page := . -}}
+          {{- with .Params.cover.image }}
+          <div class="db-library-thumb">
+            <img src="{{ . | relURL }}" alt="{{ $page.Title }}">
+          </div>
+          {{- end }}
+          <div class="db-library-meta">
+            {{- partial "post_meta.html" . -}}
+          </div>
+        </div>
+      </article>
+      {{- end }}
+    </div>
+  </section>
+</div>
+
+{{- else }}
+
+{{- if (and site.Params.profileMode.enabled .IsHome) }}
+{{- partial "index_profile.html" . }}
+{{- else }}
+
+{{- if not .IsHome | and .Title }}
+<header class="page-header">
+  {{- partial "breadcrumbs.html" . }}
+  <h1>
+    {{ .Title }}
+    {{- if and (or (eq .Kind `term`) (eq .Kind `section`)) (.Param "ShowRssButtonInSectionTermList") }}
+    {{- with .OutputFormats.Get "rss" }}
+    <a href="{{ .RelPermalink }}" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+    {{- end }}
+    {{- end }}
+  </h1>
+  {{- if .Description }}
+  <div class="post-description">
+    {{ .Description | markdownify }}
+  </div>
+  {{- end }}
+</header>
+{{- end }}
+
+{{- if .Content }}
+<div class="post-content">
+  {{- if not (.Param "disableAnchoredHeadings") }}
+  {{- partial "anchored_headings.html" .Content -}}
+  {{- else }}{{ .Content }}{{ end }}
+</div>
+{{- end }}
+
+{{- $pages := union .RegularPages .Sections }}
+
+{{- if .IsHome }}
+{{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true"  }}
+{{- end }}
+
+{{- $paginator := .Paginate $pages }}
+{{- $term := .Data.Term }}
+{{- range $index, $page := $paginator.Pages }}
+
+{{- $class := "post-entry" }}
+
+{{- $user_preferred := or site.Params.disableSpecial1stPost site.Params.homeInfoParams }}
+{{- if (and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0) (not $user_preferred)) }}
+{{- $class = "first-entry" }}
+{{- else if $term }}
+{{- $class = "post-entry tag-entry" }}
+{{- end }}
+
+<article class="{{ $class }}">
+  {{- $isHidden := (.Param "cover.hiddenInList") | default (.Param "cover.hidden") | default false }}
+  {{- partial "cover.html" (dict "cxt" . "IsSingle" false "isHidden" $isHidden) }}
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">
+      {{- .Title }}
+      {{- if .Draft }}
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+      {{- end }}
+    </h2>
+  </header>
+  {{- if (ne (.Param "hideSummary") true) }}
+  <div class="entry-content">
+    <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+  </div>
+  {{- end }}
+  {{- if not (.Param "hideMeta") }}
+  <footer class="entry-footer">
+    {{- partial "post_meta.html" . -}}
+  </footer>
+  {{- end }}
+  <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
+</article>
+{{- end }}
+
+{{- if gt $paginator.TotalPages 1 }}
+<footer class="page-footer">
+  <nav class="pagination">
+    {{- if $paginator.HasPrev }}
+    <a class="prev" href="{{ $paginator.Prev.URL | absURL }}">
+      «&nbsp;{{ i18n "prev_page" }}&nbsp;
+      {{- if (.Param "ShowPageNums") }}
+      {{- sub $paginator.PageNumber 1 }}/{{ $paginator.TotalPages }}
+      {{- end }}
+    </a>
+    {{- end }}
+    {{- if $paginator.HasNext }}
+    <a class="next" href="{{ $paginator.Next.URL | absURL }}">
+      {{- i18n "next_page" }}&nbsp;
+      {{- if (.Param "ShowPageNums") }}
+      {{- add 1 $paginator.PageNumber }}/{{ $paginator.TotalPages }}
+      {{- end }}&nbsp;»
+    </a>
+    {{- end }}
+  </nav>
+</footer>
+{{- end }}
+
+{{- end }}
+
+{{- end }}
+
+{{- end }}{{- /* end main */ -}}

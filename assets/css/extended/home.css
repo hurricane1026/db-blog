@@ -1,0 +1,239 @@
+.db-home {
+    display: grid;
+    gap: calc(var(--gap) * 1.4);
+}
+
+.db-home-hero,
+.db-home-panel,
+.db-home-card {
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.db-home-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(280px, 1fr);
+    gap: var(--gap);
+    padding: calc(var(--gap) * 1.5);
+    background:
+        radial-gradient(circle at top right, rgba(245, 158, 11, 0.14), transparent 32%),
+        radial-gradient(circle at left bottom, rgba(13, 148, 136, 0.16), transparent 28%),
+        var(--entry);
+}
+
+.db-home-kicker,
+.db-card-kicker,
+.db-stat-label {
+    color: var(--secondary);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.db-home-hero-copy h1,
+.db-home-card h2,
+.db-home-card h3,
+.db-home-panel-header h2 {
+    line-height: 1.2;
+}
+
+.db-home-hero-copy h1 {
+    margin: 10px 0 12px;
+    font-size: 42px;
+}
+
+.db-home-summary {
+    max-width: 50rem;
+    margin: 0;
+    color: var(--secondary);
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+.db-home-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.db-home-button,
+.db-home-text-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.db-home-button {
+    min-height: 42px;
+    padding: 0 18px;
+    border: 1px solid var(--border);
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.db-home-button.primary {
+    border-color: transparent;
+    background: var(--primary);
+    color: var(--theme);
+}
+
+.db-home-button:hover,
+.db-home-text-link:hover {
+    transform: translateY(-1px);
+}
+
+.db-home-stats {
+    display: grid;
+    gap: 12px;
+}
+
+.db-stat-card {
+    display: grid;
+    gap: 8px;
+    padding: 18px;
+    border-radius: calc(var(--radius) - 2px);
+    background: rgba(127, 127, 127, 0.06);
+}
+
+.db-stat-card strong {
+    font-size: 28px;
+}
+
+.db-home-panel {
+    padding: calc(var(--gap) * 1.2);
+}
+
+.db-home-panel-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.db-home-panel-header h2,
+.db-home-card h2,
+.db-home-card h3 {
+    margin: 0;
+}
+
+.db-home-panel-header p,
+.db-home-card p,
+.db-home-markdown,
+.db-home-list {
+    color: var(--secondary);
+}
+
+.db-home-markdown > :first-child,
+.db-home-card > :first-child,
+.db-home-list {
+    margin-top: 0;
+}
+
+.db-home-markdown > :last-child,
+.db-home-card > :last-child,
+.db-home-list {
+    margin-bottom: 0;
+}
+
+.db-home-markdown ul {
+    padding-left: 22px;
+}
+
+.db-home-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--gap);
+}
+
+.db-home-grid-featured {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+}
+
+.db-home-card {
+    position: relative;
+    display: grid;
+    gap: 14px;
+    padding: calc(var(--gap) * 1.1);
+}
+
+.db-home-card-featured h2 {
+    font-size: 30px;
+}
+
+.db-home-inline-meta,
+.db-home-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: var(--secondary);
+    font-size: 13px;
+}
+
+.db-home-tags span {
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(127, 127, 127, 0.09);
+}
+
+.db-home-text-link {
+    width: fit-content;
+    padding: 0;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.db-home-text-link::after {
+    content: "→";
+    margin-left: 6px;
+}
+
+.db-home-list {
+    padding-left: 20px;
+}
+
+.db-home-post-card {
+    overflow: hidden;
+}
+
+.db-home-post-card .entry-footer {
+    font-size: 13px;
+}
+
+@media (max-width: 900px) {
+    .db-home-hero,
+    .db-home-grid,
+    .db-home-grid-featured {
+        grid-template-columns: 1fr;
+    }
+
+    .db-home-hero-copy h1 {
+        font-size: 34px;
+    }
+
+    .db-home-panel-header {
+        align-items: start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 640px) {
+    .db-home-hero,
+    .db-home-panel,
+    .db-home-card {
+        padding: var(--gap);
+    }
+
+    .db-home-actions {
+        flex-direction: column;
+    }
+
+    .db-home-button {
+        width: 100%;
+    }
+}

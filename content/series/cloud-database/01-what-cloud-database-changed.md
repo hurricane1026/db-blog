@@ -1,6 +1,7 @@
 ---
 title: 第 1 篇：云数据库到底改变了什么
 slug: what-cloud-database-changed
+url: /cloud-database-series/what-cloud-database-changed/
 date: 2026-04-05
 draft: false
 categories:
@@ -10,6 +11,16 @@ tags:
   - 架构
   - 运维
 summary: 云数据库的价值不只是托管，而是重新划分数据库生命周期中的责任边界。
+description: 从责任边界变化的角度理解云数据库，适合团队在上云前先判断哪些事情被平台接管，哪些仍要自己负责。
+keywords:
+  - 云数据库
+  - 数据库架构
+  - 运维
+  - 责任边界
+cover:
+  image: /covers/cloud-db-01-responsibility.svg
+  alt: 云数据库责任边界主题封面
+  caption: Responsibility model
 series:
   - 云数据库系列
 order: 1

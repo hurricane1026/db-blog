@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#14532d"/><stop offset="100%" stop-color="#0ea5e9"/></linearGradient></defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <text x="120" y="170" fill="#fff" font-family="Helvetica, Arial, sans-serif" font-size="30" letter-spacing="5">CHAPTER 03</text>
+  <text x="120" y="268" fill="#fff" font-family="Helvetica, Arial, sans-serif" font-size="72" font-weight="700">INGESTION</text>
+  <text x="120" y="338" fill="#fff" font-family="Helvetica, Arial, sans-serif" font-size="72" font-weight="700">AND MODELING</text>
+  <path d="M792 228h188M902 172l78 56-78 56" stroke="#fff" stroke-opacity=".34" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M980 348H792M872 404l-80-56 80-56" stroke="#fff" stroke-opacity=".34" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

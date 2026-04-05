@@ -1,0 +1,66 @@
+{{- define "main" -}}
+<div class="db-home db-taxonomy-page">
+  <section class="db-home-hero">
+    <div class="db-home-hero-copy">
+      <span class="db-home-kicker">Taxonomy</span>
+      <h1>{{ .Title }}</h1>
+      <p class="db-home-summary">{{ .Description | default .Summary | default "从问题域和关键词进入内容。" }}</p>
+      <div class="db-home-actions">
+        <a class="db-home-button primary" href="/articles/">全部文章</a>
+        <a class="db-home-button" href="/series/">专题栏目</a>
+        <a class="db-home-button" href="/search/">站内搜索</a>
+      </div>
+    </div>
+    <div class="db-home-stats">
+      <article class="db-stat-card">
+        <span class="db-stat-label">词条数量</span>
+        <strong>{{ len .Data.Terms.Alphabetical }}</strong>
+      </article>
+      <article class="db-stat-card">
+        <span class="db-stat-label">入口类型</span>
+        <strong>{{ .Title }}</strong>
+      </article>
+      <article class="db-stat-card">
+        <span class="db-stat-label">浏览方式</span>
+        <strong>按问题聚合</strong>
+      </article>
+    </div>
+  </section>
+
+  {{- with .Content }}
+  <section class="db-home-panel">
+    <div class="db-home-panel-header">
+      <h2>浏览说明</h2>
+      <p>先选一个词条，再进入对应文章列表。</p>
+    </div>
+    <div class="db-home-markdown">
+      {{ . }}
+    </div>
+  </section>
+  {{- end }}
+
+  <section class="db-home-panel">
+    <div class="db-home-panel-header">
+      <h2>{{ .Title }}词条</h2>
+      <p>每个词条都可以继续展开到文章列表。</p>
+    </div>
+    <div class="db-taxonomy-grid">
+      {{- $type := .Type }}
+      {{- range .Data.Terms.ByCount }}
+      {{- $name := .Name }}
+      {{- with site.GetPage (printf "/%s/%s" $type $name) }}
+      <article class="db-home-card">
+        <span class="db-card-kicker">{{ $.Title }}</span>
+        <h3>{{ .Title }}</h3>
+        <p>查看与“{{ .Title }}”相关的数据库文章。</p>
+        <div class="db-home-inline-meta">
+          <span>{{ len .Pages }} 篇文章</span>
+        </div>
+        <a class="db-home-text-link" href="{{ .RelPermalink }}">查看词条</a>
+      </article>
+      {{- end }}
+      {{- end }}
+    </div>
+  </section>
+</div>
+{{- end -}}
