@@ -1,0 +1,120 @@
+{{- define "main" -}}
+{{- $scratch := newScratch -}}
+{{- $scratch.Set "pages" (slice) -}}
+{{- range site.RegularPages -}}
+  {{- if in (.Params.series | default (slice)) $.Title -}}
+    {{- $scratch.Add "pages" (slice .) -}}
+  {{- end -}}
+{{- end -}}
+{{- $pages := sort ($scratch.Get "pages") "Params.weight" "asc" -}}
+{{- $overview := first 1 $pages -}}
+
+<div class="db-home db-series-page">
+  <section class="db-home-hero">
+    <div class="db-home-hero-copy">
+      <span class="db-home-kicker">Series / Topic</span>
+      <h1>{{ .Title }}</h1>
+      <p class="db-home-summary">{{ .Description | default .Summary }}</p>
+      <div class="db-home-actions">
+        {{- with index $pages 0 }}
+        <a class="db-home-button primary" href="{{ .RelPermalink }}">从总览开始</a>
+        {{- end }}
+        <a class="db-home-button" href="/articles/">浏览全部文章</a>
+        <a class="db-home-button" href="/archives/">查看归档</a>
+      </div>
+    </div>
+    <div class="db-home-stats">
+      <article class="db-stat-card">
+        <span class="db-stat-label">文章数量</span>
+        <strong>{{ len $pages }}</strong>
+      </article>
+      <article class="db-stat-card">
+        <span class="db-stat-label">适合人群</span>
+        <strong>工程团队</strong>
+      </article>
+      <article class="db-stat-card">
+        <span class="db-stat-label">阅读方式</span>
+        <strong>顺序阅读</strong>
+      </article>
+    </div>
+  </section>
+
+  {{- with .Content }}
+  <section class="db-home-panel">
+    <div class="db-home-panel-header">
+      <h2>专题说明</h2>
+      <p>先理解这个专题解决什么问题，再按顺序读正文。</p>
+    </div>
+    <div class="db-home-markdown">
+      {{ . }}
+    </div>
+  </section>
+  {{- end }}
+
+  {{- with index $overview 0 }}
+  <section class="db-home-grid db-home-grid-featured">
+    <article class="db-home-card db-home-card-featured">
+      {{- $overviewPage := . -}}
+      {{- with .Params.cover.image }}
+      <div class="db-home-cover">
+        <img src="{{ . | relURL }}" alt="{{ $overviewPage.Title }}">
+      </div>
+      {{- end }}
+      <span class="db-card-kicker">专题总览</span>
+      <h2>{{ .Title }}</h2>
+      <p>{{ .Summary | plainify | htmlUnescape }}</p>
+      <div class="db-home-inline-meta">
+        <span>{{ .Date | time.Format "2006-01-02" }}</span>
+        <span>建议先读</span>
+      </div>
+      <a class="db-home-text-link" href="{{ .RelPermalink }}">打开总览</a>
+    </article>
+    <article class="db-home-card">
+      <span class="db-card-kicker">专题覆盖</span>
+      <h2>这一组文章会讨论什么</h2>
+      <ul class="db-home-list">
+        <li>云数据库到底改变了哪些职责边界。</li>
+        <li>数据库选型、高可用、性能、成本与迁移如何拆开看。</li>
+        <li>哪些问题属于平台能力，哪些问题仍然要由工程团队负责。</li>
+      </ul>
+      <a class="db-home-text-link" href="/articles/">切到全站浏览</a>
+    </article>
+  </section>
+  {{- end }}
+
+  <section class="db-home-panel">
+    <div class="db-home-panel-header">
+      <h2>推荐阅读顺序</h2>
+      <p>先总览，再按问题域逐步深入。</p>
+    </div>
+    <div class="db-home-grid">
+      {{- range $pages }}
+      <article class="db-home-card db-home-post-card">
+        {{- $page := . -}}
+        {{- with .Params.cover.image }}
+        <div class="db-home-cover">
+          <img src="{{ . | relURL }}" alt="{{ $page.Title }}">
+        </div>
+        {{- end }}
+        <span class="db-card-kicker">
+          {{- if eq .File.BaseFileName "00-series-overview" -}}总览{{- else -}}正文{{- end -}}
+        </span>
+        <h3>{{ .Title }}</h3>
+        <p>{{ .Summary | plainify | htmlUnescape }}</p>
+        {{- with .Params.tags }}
+        <div class="db-home-tags">
+          {{- range first 3 . }}
+          <span>{{ . }}</span>
+          {{- end }}
+        </div>
+        {{- end }}
+        <footer class="entry-footer">
+          {{- partial "post_meta.html" . -}}
+        </footer>
+        <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .RelPermalink }}"></a>
+      </article>
+      {{- end }}
+    </div>
+  </section>
+</div>
+{{- end -}}

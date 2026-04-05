@@ -1,0 +1,53 @@
+.db-library-list {
+    display: grid;
+    gap: 14px;
+}
+
+.db-library-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 180px;
+    gap: 20px;
+    padding: calc(var(--gap) * 1.1);
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.db-library-row h3 {
+    margin: 10px 0;
+    font-size: 24px;
+}
+
+.db-library-row h3 a {
+    color: var(--primary);
+}
+
+.db-library-row p {
+    margin: 0 0 12px;
+    color: var(--secondary);
+}
+
+.db-library-row-side {
+    display: flex;
+    align-items: start;
+    justify-content: end;
+    color: var(--secondary);
+    font-size: 13px;
+    text-align: right;
+}
+
+.db-library-grid-two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+    .db-library-grid-two,
+    .db-library-row {
+        grid-template-columns: 1fr;
+    }
+
+    .db-library-row-side {
+        justify-content: start;
+        text-align: left;
+    }
+}

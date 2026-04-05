@@ -1,6 +1,7 @@
 ---
 title: 第 4 篇：性能治理不是只看 CPU
 slug: performance-governance
+url: /cloud-database-series/performance-governance/
 date: 2026-04-05
 draft: false
 categories:
@@ -10,6 +11,17 @@ tags:
   - 性能优化
   - SQL
 summary: 云数据库性能问题往往不是“机器不够大”，而是访问模型、索引和流量形态出了问题。
+description: 从 SQL、索引、连接池、热点和流量形态等角度讨论数据库性能治理，而不是只靠升配解决问题。
+keywords:
+  - 云数据库
+  - 性能治理
+  - SQL
+  - 索引
+  - 性能优化
+cover:
+  image: /covers/cloud-db-04-performance.svg
+  alt: 数据库性能治理主题封面
+  caption: Performance governance
 series:
   - 云数据库系列
 order: 4

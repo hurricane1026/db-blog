@@ -1,0 +1,88 @@
+{{- define "main" -}}
+{{- $scratch := newScratch -}}
+{{- $scratch.Set "seriesPages" (slice) -}}
+{{- range site.Pages -}}
+  {{- if and (eq .Kind "section") (eq .Params.layout "series-page") -}}
+    {{- $scratch.Add "seriesPages" (slice .) -}}
+  {{- end -}}
+{{- end -}}
+{{- $seriesPages := sort ($scratch.Get "seriesPages") "Title" "asc" -}}
+{{- $articlePages := where site.RegularPages "Section" "in" (site.Params.mainSections | default (slice "series")) -}}
+
+<div class="db-home db-library">
+  <section class="db-home-hero">
+    <div class="db-home-hero-copy">
+      <span class="db-home-kicker">Series Hub</span>
+      <h1>{{ .Title }}</h1>
+      <p class="db-home-summary">{{ .Description | default .Summary }}</p>
+      <div class="db-home-actions">
+        <a class="db-home-button primary" href="/cloud-database-series/">当前专题</a>
+        <a class="db-home-button" href="/articles/">全部文章</a>
+        <a class="db-home-button" href="/archives/">时间归档</a>
+      </div>
+    </div>
+    <div class="db-home-stats">
+      <article class="db-stat-card">
+        <span class="db-stat-label">专题数量</span>
+        <strong>{{ len $seriesPages }}</strong>
+      </article>
+      <article class="db-stat-card">
+        <span class="db-stat-label">文章总数</span>
+        <strong>{{ len $articlePages }}</strong>
+      </article>
+      <article class="db-stat-card">
+        <span class="db-stat-label">阅读方式</span>
+        <strong>系统阅读</strong>
+      </article>
+    </div>
+  </section>
+
+  {{- with .Content }}
+  <section class="db-home-panel">
+    <div class="db-home-panel-header">
+      <h2>栏目说明</h2>
+      <p>专题适合从背景到实践连续阅读。</p>
+    </div>
+    <div class="db-home-markdown">
+      {{ . }}
+    </div>
+  </section>
+  {{- end }}
+
+  <section class="db-home-panel">
+    <div class="db-home-panel-header">
+      <h2>全部专题</h2>
+      <p>按主题集中组织内容，方便后续继续扩展更多数据库专题。</p>
+    </div>
+    <div class="db-home-grid db-library-grid-two">
+      {{- range $seriesPages }}
+      {{- $seriesTitle := .Title -}}
+      {{- $sectionScratch := newScratch -}}
+      {{- $sectionScratch.Set "pages" (slice) -}}
+      {{- range site.RegularPages -}}
+        {{- if in (.Params.series | default (slice)) $seriesTitle -}}
+          {{- $sectionScratch.Add "pages" (slice .) -}}
+        {{- end -}}
+      {{- end -}}
+      {{- $sectionPages := sort ($sectionScratch.Get "pages") "Params.weight" "asc" -}}
+      <article class="db-home-card">
+        {{- $seriesPage := . -}}
+        {{- with .Params.cover.image }}
+        <div class="db-home-cover">
+          <img src="{{ . | relURL }}" alt="{{ $seriesPage.Title }}">
+        </div>
+        {{- end }}
+        <span class="db-card-kicker">专题</span>
+        <h2>{{ .Title }}</h2>
+        <p>{{ .Description | default .Summary }}</p>
+        <div class="db-home-inline-meta">
+          <span>{{ len $sectionPages }} 篇文章</span>
+          <span>{{ with index $sectionPages 0 }}起始阅读：{{ .Title }}{{ end }}</span>
+        </div>
+        <a class="db-home-text-link" href="{{ .RelPermalink }}">进入专题</a>
+      </article>
+      {{- end }}
+    </div>
+  </section>
+</div>
+{{- end -}}

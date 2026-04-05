@@ -1,6 +1,7 @@
 ---
 title: 第 3 篇：高可用、备份与容灾的真实成本
 slug: ha-backup-and-dr
+url: /cloud-database-series/ha-backup-and-dr/
 date: 2026-04-05
 draft: false
 categories:
@@ -11,6 +12,17 @@ tags:
   - 备份
   - 容灾
 summary: 在云数据库里，高可用、备份和容灾是三件相关但完全不同的事。
+description: 把高可用、备份与容灾拆成三类不同问题，帮助团队避免在采购和架构设计阶段混淆边界。
+keywords:
+  - 云数据库
+  - 高可用
+  - 备份
+  - 容灾
+  - 稳定性治理
+cover:
+  image: /covers/cloud-db-03-ha.svg
+  alt: 高可用与容灾主题封面
+  caption: HA backup DR
 series:
   - 云数据库系列
 order: 3

@@ -1,0 +1,35 @@
+.db-taxonomy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--gap);
+}
+
+.db-home-cover {
+    overflow: hidden;
+    border-radius: calc(var(--radius) - 8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(127, 127, 127, 0.08);
+}
+
+.db-home-cover img,
+.db-library-thumb img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.db-library-thumb {
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+}
+
+.db-library-meta {
+    margin-top: 12px;
+}
+
+@media (max-width: 900px) {
+    .db-taxonomy-grid {
+        grid-template-columns: 1fr;
+    }
+}

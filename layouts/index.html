@@ -1,0 +1,179 @@
+{{- define "main" -}}
+{{- $mainSections := site.Params.mainSections | default (slice "series") -}}
+{{- $pages := where site.RegularPages "Section" "in" $mainSections -}}
+{{- $ordered := sort $pages "Params.weight" "asc" -}}
+{{- $featured := site.GetPage "/series/cloud-database/00-series-overview" -}}
+{{- $seriesPage := site.GetPage "/series/cloud-database" -}}
+{{- $scratch := newScratch -}}
+{{- $scratch.Set "seriesPages" (slice) -}}
+{{- range site.Pages -}}
+  {{- if and (eq .Kind "section") (eq .Params.layout "series-page") -}}
+    {{- $scratch.Add "seriesPages" (slice .) -}}
+  {{- end -}}
+{{- end -}}
+{{- $seriesPages := $scratch.Get "seriesPages" -}}
+
+<div class="db-home">
+  <section class="db-home-hero">
+    <div class="db-home-hero-copy">
+      <span class="db-home-kicker">Hugo / PaperMod / 中文技术博客</span>
+      <h1>{{ site.Title }}</h1>
+      <p class="db-home-summary">{{ site.Params.description }}</p>
+      <div class="db-home-actions">
+        <a class="db-home-button primary" href="{{ with $seriesPage }}{{ .RelPermalink }}{{ else }}/cloud-database-series/{{ end }}">进入专题</a>
+        <a class="db-home-button" href="/articles/">浏览文章</a>
+        <a class="db-home-button" href="/search/">站内搜索</a>
+      </div>
+    </div>
+    <div class="db-home-stats">
+      <article class="db-stat-card">
+        <span class="db-stat-label">文章总数</span>
+        <strong>{{ len $pages }}</strong>
+      </article>
+      <article class="db-stat-card">
+        <span class="db-stat-label">专题数量</span>
+        <strong>{{ len $seriesPages }}</strong>
+      </article>
+      <article class="db-stat-card">
+        <span class="db-stat-label">标签数量</span>
+        <strong>{{ len site.Taxonomies.tags }}</strong>
+      </article>
+    </div>
+  </section>
+
+  {{- with .Content }}
+  <section class="db-home-panel">
+    <div class="db-home-panel-header">
+      <h2>阅读说明</h2>
+      <p>先理解站点关注的问题边界，再进入具体文章。</p>
+    </div>
+    <div class="db-home-markdown">
+      {{ . }}
+    </div>
+  </section>
+  {{- end }}
+
+  <section class="db-home-grid db-home-grid-featured">
+    {{- with $featured }}
+    <article class="db-home-card db-home-card-featured">
+      {{- $featuredPage := . -}}
+      {{- with .Params.cover.image }}
+      <div class="db-home-cover">
+        <img src="{{ . | relURL }}" alt="{{ $featuredPage.Title }}">
+      </div>
+      {{- end }}
+      <span class="db-card-kicker">推荐阅读</span>
+      <h2>{{ .Title }}</h2>
+      <p>{{ .Summary | plainify | htmlUnescape }}</p>
+      <div class="db-home-inline-meta">
+        <span>{{ .Date | time.Format "2006-01-02" }}</span>
+        <span>{{ with index .Params.series 0 }}{{ . }}{{ end }}</span>
+      </div>
+      <a class="db-home-text-link" href="{{ .RelPermalink }}">从这里开始</a>
+    </article>
+    {{- end }}
+
+    {{- with $seriesPage }}
+    <article class="db-home-card">
+      {{- $seriesEntry := . -}}
+      {{- with .Params.cover.image }}
+      <div class="db-home-cover">
+        <img src="{{ . | relURL }}" alt="{{ $seriesEntry.Title }}">
+      </div>
+      {{- end }}
+      <span class="db-card-kicker">专题入口</span>
+      <h2>{{ .Title }}</h2>
+      <p>{{ .Description | default .Summary }}</p>
+      <ul class="db-home-list">
+        <li>按顺序阅读，适合系统建立认知。</li>
+        <li>覆盖选型、稳定性、性能、成本和迁移。</li>
+        <li>适合工程团队、技术负责人和 SRE。</li>
+      </ul>
+      <a class="db-home-text-link" href="{{ .RelPermalink }}">查看专题目录</a>
+    </article>
+    {{- end }}
+  </section>
+
+  <section class="db-home-panel">
+    <div class="db-home-panel-header">
+      <h2>专题目录</h2>
+      <p>当前站点已经开始按专题扩展，而不是只维护一组文章。</p>
+    </div>
+    <div class="db-home-grid db-library-grid-two">
+      {{- range sort $seriesPages "Title" "asc" }}
+      <article class="db-home-card">
+        {{- $series := . -}}
+        {{- with .Params.cover.image }}
+        <div class="db-home-cover">
+          <img src="{{ . | relURL }}" alt="{{ $series.Title }}">
+        </div>
+        {{- end }}
+        <span class="db-card-kicker">专题</span>
+        <h3>{{ .Title }}</h3>
+        <p>{{ .Description | default .Summary }}</p>
+        <a class="db-home-text-link" href="{{ .RelPermalink }}">进入专题</a>
+      </article>
+      {{- end }}
+    </div>
+  </section>
+
+  <section class="db-home-panel">
+    <div class="db-home-panel-header">
+      <h2>专题文章</h2>
+      <p>按推荐阅读顺序展示，适合系统阅读。</p>
+    </div>
+    <div class="db-home-grid">
+      {{- range $ordered }}
+      {{- if ne .File.BaseFileName "00-series-overview" }}
+      <article class="db-home-card db-home-post-card">
+        {{- $post := . -}}
+        {{- with .Params.cover.image }}
+        <div class="db-home-cover">
+          <img src="{{ . | relURL }}" alt="{{ $post.Title }}">
+        </div>
+        {{- end }}
+        <span class="db-card-kicker">{{ .Date | time.Format "2006-01-02" }}</span>
+        <h3>{{ .Title }}</h3>
+        <p>{{ .Summary | plainify | htmlUnescape }}</p>
+        {{- with .Params.tags }}
+        <div class="db-home-tags">
+          {{- range first 3 . }}
+          <span>{{ . }}</span>
+          {{- end }}
+        </div>
+        {{- end }}
+        <footer class="entry-footer">
+          {{- partial "post_meta.html" . -}}
+        </footer>
+        <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .RelPermalink }}"></a>
+      </article>
+      {{- end }}
+      {{- end }}
+    </div>
+  </section>
+
+  <section class="db-home-panel">
+    <div class="db-home-panel-header">
+      <h2>阅读路径</h2>
+      <p>不同角色可以直接从自己最关心的问题切入。</p>
+    </div>
+    <div class="db-home-grid">
+      <article class="db-home-card">
+        <span class="db-card-kicker">给技术负责人</span>
+        <h3>先看选型和责任边界</h3>
+        <p>先搞清楚云数据库解决什么、不解决什么，再讨论产品和预算，否则很容易误判风险。</p>
+      </article>
+      <article class="db-home-card">
+        <span class="db-card-kicker">给工程团队</span>
+        <h3>重点看性能、稳定性和迁移</h3>
+        <p>真正影响线上体验的，通常不是实例能不能创建，而是访问模型、故障切换和迁移窗口怎么控风险。</p>
+      </article>
+      <article class="db-home-card">
+        <span class="db-card-kicker">给需要快速检索的人</span>
+        <h3>用归档页和搜索页</h3>
+        <p>当文章数量继续增加后，专题负责组织知识，归档和搜索负责提高查找效率。</p>
+      </article>
+    </div>
+  </section>
+</div>
+{{- end -}}

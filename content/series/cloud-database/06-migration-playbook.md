@@ -1,6 +1,7 @@
 ---
 title: 第 6 篇：从自建 MySQL 迁移到云数据库的实战路径
 slug: migration-playbook
+url: /cloud-database-series/migration-playbook/
 date: 2026-04-05
 draft: false
 categories:
@@ -10,6 +11,17 @@ tags:
   - MySQL
   - 数据迁移
 summary: 数据库迁移的重点不是“搬过去”，而是在可回滚前提下完成切换。
+description: 从盘点、验证、同步、校验、灰度切换和回滚预案六个阶段梳理数据库迁移的实战路径。
+keywords:
+  - 云数据库
+  - 数据迁移
+  - MySQL
+  - 灰度切换
+  - 回滚预案
+cover:
+  image: /covers/cloud-db-06-migration.svg
+  alt: 数据库迁移主题封面
+  caption: Migration playbook
 series:
   - 云数据库系列
 order: 6

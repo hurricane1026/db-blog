@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Cloud database series</title>
+  <desc id="desc">Abstract cover for the cloud database series.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#062c30"/>
+      <stop offset="55%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="76" y="72" width="1048" height="486" rx="28" fill="none" stroke="#ffffff" stroke-opacity=".18"/>
+  <rect x="110" y="120" width="320" height="16" rx="8" fill="#ffffff" fill-opacity=".28"/>
+  <rect x="110" y="170" width="560" height="76" rx="20" fill="#ffffff" fill-opacity=".10"/>
+  <rect x="110" y="276" width="490" height="18" rx="9" fill="#ffffff" fill-opacity=".22"/>
+  <rect x="110" y="316" width="420" height="18" rx="9" fill="#ffffff" fill-opacity=".22"/>
+  <rect x="760" y="130" width="280" height="280" rx="42" fill="#ffffff" fill-opacity=".10"/>
+  <circle cx="900" cy="270" r="104" fill="none" stroke="#ffffff" stroke-opacity=".32" stroke-width="18"/>
+  <circle cx="900" cy="270" r="54" fill="#ffffff" fill-opacity=".18"/>
+  <text x="110" y="464" fill="#ffffff" font-family="Helvetica, Arial, sans-serif" font-size="34" letter-spacing="5">DATABASE ENGINEERING BLOG</text>
+  <text x="110" y="230" fill="#ffffff" font-family="Helvetica, Arial, sans-serif" font-size="62" font-weight="700">CLOUD DATABASE SERIES</text>
+</svg>
